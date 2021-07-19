@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="row">
+    <img class="col-8" src="{% static 'contact.jpg' %}" alt="">
+    <form method="POST" class="col-4 align-self-center">
+        {% csrf_token %}
+        <div class="text-center">
+            <h2>Contact Us</h2>
+        </div>
+        <div class="row justify-content-center">
+            <div class="form-group col-11">
+                <input type="text" name="name" placeholder="Enter your full name" class="form-control">
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="form-group col-11">
+                <input type="email" name="email" placeholder="Input your email" class="form-control">
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="form-group col-11">
+                <textarea class="form-control" name="message" placeholder="Enter your message" cols="30" rows="3"></textarea>
+            </div>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-success">Submit</button>
+        </div>
+    </form>
+</div>
+<div class="row justify-content-center mt-2">
+    <div class="col-2">
+        <i style="font-size:26px" class="fa">&#xf095;</i>
+        <br>India: <br>
+        <a href="">1830-570-1154</a>
+    </div>
+    <div class="col-2">
+        <i style="font-size:26px" class="fa">&#xf095;</i>
+        <br>International: <br>
+        <a href="">068-53772345</a>
+    </div>
+</div>
+{% endblock %}

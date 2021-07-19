@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<a href="{% url 'appointment' %}"><button type="button" class="btn btn-primary float-right mb-5 mr-5 mt-5">Book an Appointment</button></a>
+<div class="container">
+    <table class="table table-dark table-hover table-striped">
+        <tr>
+            <th>No.</th>
+            <th>Patient Name</th>
+            <th>Doctor Name</th>
+            <th>Timings</th>
+            <th>Symptoms</th>
+            <th>Status</th>
+        </tr>
+        {% for i in records %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.patient_name}}</td>
+            <td>{{i.doctor_name}}</td>
+            <td>{{i.timings}}</td>
+            <td>{{i.symptoms}}</td>
+            {% if i.status == "Pending" %}
+            <td class="text-dark">
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#pending">Status</button>
+                <div class="modal fade" id="pending" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header bg-warning">
+                                <h5 class="modal-title" id="exampleModalLabel">Pending</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Your status is pending</p>
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            {% elif i.status == "Accepted" %}
+            <td class="text-dark">
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#accepted">Status</button>
+                <div class="modal fade" id="accepted" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header bg-success">
+                                <h5 class="modal-title" id="exampleModalLabel">Accepted</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Your appointment is confirmed</p>
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            {% else %}
+            <td class="text-dark">
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#cancelled">Status</button>
+                <div class="modal fade" id="cancelled" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header bg-danger">
+                                <h5 class="modal-title" id="exampleModalLabel">Cancelled</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>{{i.reason}}</p>
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

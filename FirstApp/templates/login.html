@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="POST" class="container mt-5">
+    {% csrf_token %}
+    <h1 class="text-center">Login Form</h1>
+    <div class="row justify-content-center">
+        <div class="form-group col-6">
+            <label class="font-weight-bold">Username</label>
+            <input type="text" name="username" placeholder="Enter your username" class="form-control">
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="form-group col-6">
+            <label class="font-weight-bold">Password</label>
+            <input type="password" name="password" placeholder="Enter your password" class="form-control">
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="form-group col-6">
+            don't have an account? <a href="{% url 'register' %}">Sign up here</a>
+        </div>
+    </div>
+    <div class="text-center mt-2">
+        <button type="submit" class="btn btn-success">Login</button>
+    </div>
+</form>
+{% endblock %}

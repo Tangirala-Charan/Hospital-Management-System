@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <table style="border-radius: 10px;" class="col-8 table table-dark table-bordered table-hover table-striped" style="color: white;">
+            <tr>
+                <th>Name</th>
+                <td>{{data}}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{data.email}}</td>
+            </tr>
+            <tr>
+                <th>Phone Number</th>
+                <td>{{data.phone_number}}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{data.address}}</td>
+            </tr>
+            <tr>
+                <th>Age</th>
+                <td>{{data.age}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="text-center">
+        <a href="{% url 'update' %}"><button class="btn btn-warning">Update</button></a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="POST" class="container">
+    {% csrf_token %}
+    <h1 class="text-center mt-5">Registration Form</h1>
+    <div class="row justify-content-center">
+        <div class="form-group col-6">
+            <label class="font-weight-bold" id="name">Name</label>
+            <input type="text" class="form-control" name="name" id="name" placeholder="Enter your full name">
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="form-group col-6">
+            <label class="font-weight-bold">Username</label>
+            <input type="text" class="form-control" name="username" placeholder="Enter your username">
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="form-group col-6">
+            <label class="font-weight-bold">Password</label>
+            <input type="password" class="form-control" name="password" placeholder="Enter password">
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="form-group col-6">
+            <label class="font-weight-bold">Confirm Password</label>
+            <input type="password" class="form-control" name="_password" placeholder="Re-enter your password">
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="form-group col-6">
+            <label class="font-weight-bold">Email</label>
+            <input type="email" class="form-control" name="email" placeholder="Enter your email">
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="form-group col-6">
+            <label class="font-weight-bold">Address</label>
+            <textarea rows="4" class="form-control" name="address" placeholder="Enter your address"></textarea>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="form-group col-6">
+            <label for="male">Gender</label><br>
+            <input type="radio" value="Male" id="male" name="gender"><label for="male">&ensp;Male</label><br>
+            <input type="radio" value="Female" id="female" name="gender"><label for="female">&ensp;Female</label><br>
+            <input type="radio" value="Other" id="other" name="gender"><label for="other">&ensp;Other</label><br>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="form-group col-6">
+            <label class="font-weight-bold">Age</label>
+            <input type="number" class="form-control" name="age" placeholder="Enter your age">
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="form-group col-6">
+            <label class="font-weight-bold">Phone Number</label>
+            <input type="text" class="form-control" name="phone_number" placeholder="Enter your phone number">
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="form-group col-6">
+            Already have an account? <a href="{% url 'login' %}">Login here!!</a>
+        </div>
+    </div>
+    <div class="text-center mb-5 mt-2">
+        <button type="submit" class="btn btn-success">Signup</button>
+    </div>
+</form>
+{% endblock %}

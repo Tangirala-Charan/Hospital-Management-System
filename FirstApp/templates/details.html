@@ -1,0 +1,122 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <style>
+        body
+        {
+            background-color: rgb(27, 27, 27);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">KML Hospital</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarToggler">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'about' %}">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'details' %}">Appointments</a>
+                </li>
+                {% endif %}
+            </ul>
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                {% if not user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'sign_in' %}">Admin Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Patient Login</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <table class="table table-dark table-hover table-striped">
+                <tr>
+                    <th>Id</th>
+                    <th>Username</th>
+                    <th>Patient Name</th>
+                    <th>Doctor Name</th>
+                    <th>Timings</th>
+                    <th>Age</th>
+                    <th>Phone Number</th>
+                    <th>Symptoms</th>
+                    <th colspan="2">Status</th>
+                </tr>
+                {% for i in data %}
+                <tr>
+                    <td>{{i.id}}</td>
+                    <td>{{i.username}}</td>
+                    <td>{{i.patient_name}}</td>
+                    <td>{{i.doctor_name}}</td>
+                    <td>{{i.timings}}</td>
+                    <td>{{i.age}}</td>
+                    <td>{{i.phone_number}}</td>
+                    <td>{{i.symptoms}}</td>
+                    {% if i.status == 'Accepted' %}
+                    <td colspan="2" class="bg-success">Accepted</td>
+                    {% elif i.status == 'Cancelled' %}
+                    <td colspan="2" class="bg-danger">Cancelled</td>
+                    {% else %}
+                    {% if not i.reason %}
+                    <td>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancel">&#10006</button>
+                        <div class="modal fade" id="cancel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-danger">
+                                        <h5 class="modal-title" id="exampleModalLabel">Pending</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="POST" action="{% url 'reason' i.id %}">
+                                            {% csrf_token %}
+                                            <input type="text" name="reason_text">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td><a href="{% url 'accept' i.id %}"><button class="btn btn-success">&#10004</button></a></td>
+                    {% else %}
+                    <td>{{i.reason}}</td>
+                    {% endif %}
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+</body>
+</html>
+
