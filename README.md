@@ -1,1 +1,1 @@
-# APSSDC-Django-Internship
+# Hospital Management System using Django and SQL
